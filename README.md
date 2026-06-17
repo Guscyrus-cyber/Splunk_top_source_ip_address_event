@@ -114,46 +114,11 @@ By working directly with raw security events rather than dashboards or visualiza
 **3. The folder containing the 20 generated datasets**
 
 **4. Splunk ingestion**\
-**5. Splunk searches and results**\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
+
+**5. Splunk searches and results**
+
+
+
 
 | **\#** | **Dataset File**           | **Splunk Index** |
 |--------|----------------------------|------------------|
@@ -178,6 +143,9 @@ By working directly with raw security events rather than dashboards or visualiza
 | 19     | login_failures_by_user.log | auth             |
 | 20     | sourcetype_count.log       | security         |
 
+
+Please refer to images # 1, 2, and 3 in the repository.
+
 **Note:** This repository contains one security event investigation from the Splunk Enterprise Tier 1 SOC 20 Security Event Monitoring Lab series. For the remaining security event investigations, please refer to the corresponding repositories in this project collection.
 
 **Top Source IP Addresses Event**
@@ -198,15 +166,16 @@ Suspicious hosts\
 High-volume traffic generators\
 Systems requiring further investigation
 
+Please refer to image # 4 in the repository.
 
-**\
-1. Confirm Dataset Ingestion**
+**1. Confirm Dataset Ingestion**
 
 index=network sourcetype=top_source_ips\
 \| stats count by source index sourcetype
 
 Purpose: Verify the dataset was ingested correctly.
 
+Please refer to image # 5 in the repository.
 
 **2. View Raw Events**
 
@@ -226,27 +195,9 @@ Individual network events transferred varying amounts of data. In the displayed 
 \
 Network traffic was initiated by multiple source IP addresses and sent to several destination IP addresses. The observed source IPs included 123.123.123.123, 10.0.0.20, 10.0.0.15, 192.168.1.50, 10.0.0.10, and 88.88.88.88. Traffic was directed toward destination IPs such as 192.168.1.10, 192.168.1.20, 172.16.1.5, 45.33.32.156, and 8.8.8.8. The amount of data transferred varied between events, ranging from 474 bytes to 8,231 bytes in the displayed results.
 
+Please refer to image # 6 and 7 in the repository.
 
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-3. Top Source IP Addresses**
+**3. Top Source IP Addresses**
 
 index=network sourcetype=top_source_ips\
 \| stats count by src_ip\
@@ -258,26 +209,9 @@ Which **source IP addresses** are generating the most network events?\
 \
 The source IP addresses **10.0.0.20** and **192.168.1.50** generated the highest number of network events, with **12 events each**. They were followed by **88.88.88.88** with **10 events**, **10.0.0.10** and **10.0.0.15** with **9 events each**, and **123.123.123.123** with **8 events**.
 
+Please refer to image # 8 in the repository.
 
-**\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-4. Total Bytes Sent by Source IP**
+**4. Total Bytes Sent by Source IP**
 
 index=network sourcetype=top_source_ips\
 \| stats sum(bytes) as total_bytes by src_ip\
@@ -289,9 +223,9 @@ Which IP addresses consumed the most bandwidth?\
 \
 The source IP address **88.88.88.88** consumed the most bandwidth, transferring a total of **52,249 bytes**. It was followed by **10.0.0.20** with **51,637 bytes**, **10.0.0.10** with **44,568 bytes**, **192.168.1.50** with **43,481 bytes**, **123.123.123.123** with **40,912 bytes**, and **10.0.0.15** with **39,500 bytes**.
 
+Please refer to image # 9 in the repository.
 
-**\
-5. Source IP to Destination Mapping**
+**5. Source IP to Destination Mapping**
 
 index=network sourcetype=top_source_ips\
 \| stats count by src_ip dest_ip\
@@ -303,6 +237,7 @@ Which source IP and destination IP pairs communicate most frequently?\
 \
 The most frequent communication pair was **10.0.0.20 → 8.8.8.8**, generating **6 network events**. The next most active pair was **88.88.88.88 → 192.168.1.10** with **5 events**, followed by **192.168.1.50 → 45.33.32.156** with **4 events**.
 
+Please refer to image # 10 in the repository.
 
 **6. Unique Destinations Per Source**
 
@@ -316,8 +251,10 @@ Is one source IP contacting many different destinations?
 
 No. The source IP addresses displayed similar communication patterns. Five source IPs each contacted five unique destination IP addresses, while one source IP contacted four unique destinations. No single source IP demonstrated significantly higher destination diversity than the others.
 
-\
-7. Average Bytes Per Source**
+Please refer to image # 11 in the repository.
+
+
+**7. Average Bytes Per Source**
 
 index=network sourcetype=top_source_ips\
 \| stats avg(bytes) as average_bytes by src_ip\
@@ -328,13 +265,10 @@ Purpose: Identify unusually large transfers.
 Which IP addresses have the largest average traffic size (bytes)?\
 \
 The source IP address **88.88.88.88** had the largest average traffic size at **5,224.9 bytes per event**. It was followed by **123.123.123.123** with **5,114 bytes**, **10.0.0.10** with **4,952 bytes**, **10.0.0.15** with **4,388.89 bytes**, **10.0.0.20** with **4,303.08 bytes**, and **192.168.1.50** with **3,623.42 bytes**.\
-\
-\
-\
-\
-\
-\
-\
+
+Please refer to image # 12 in the repository.
+
+
 **8. Top Talkers Summary**
 
 index=network sourcetype=top_source_ips\
@@ -347,23 +281,9 @@ Which source IPs are both active and transferring significant amounts of data?
 
 The source IP addresses **88.88.88.88** and **10.0.0.20** were the most notable in the dataset. **88.88.88.88** generated **10 network events** and transferred **52,249 bytes**, while **10.0.0.20** generated **12 network events** and transferred **51,637 bytes**. These source IP addresses demonstrated both high activity and large data transfer volumes.
 
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-9. Unique Destination Analysis\**
+Please refer to image # 13 in the repository.
+
+**9. Unique Destination Analysis**
 \
 index=network sourcetype=top_source_ips\
 \| stats dc(dest_ip) as unique_destinations by src_ip\
@@ -377,9 +297,11 @@ Which source IP addresses communicated with the greatest number of unique destin
 10.0.0.10, 10.0.0.15, 123.123.123.123, 192.168.1.50, and 88.88.88.88 communicated with the greatest number of unique destination IP addresses, with 5 destinations each**.**
 
 \**
-Five source IP addresses (10.0.0.10, 10.0.0.15, 123.123.123.123, 192.168.1.50, and 88.88.88.88) each communicated with 5 unique destination IP addresses. One source IP (10.0.0.20) communicated with 4 unique destination IP addresses. The communication patterns were relatively uniform across the dataset, and no source IP demonstrated unusually high destination diversity.**\
-\
-10. Executive Summary**
+Five source IP addresses (10.0.0.10, 10.0.0.15, 123.123.123.123, 192.168.1.50, and 88.88.88.88) each communicated with 5 unique destination IP addresses. One source IP (10.0.0.20) communicated with 4 unique destination IP addresses. The communication patterns were relatively uniform across the dataset, and no source IP demonstrated unusually high destination diversity.
+
+Please refer to image # 14 in the repository.
+
+**10. Executive Summary**
 
 index=network sourcetype=top_source_ips\
 \| stats dc(src_ip) as unique_sources dc(dest_ip) as unique_destinations sum(bytes) as total_bytes count as total_connections
@@ -387,9 +309,6 @@ index=network sourcetype=top_source_ips\
 Purpose: Provide a high-level overview for reporting.
 
 
-**\
-\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\
-\**
 How many unique source IPs, unique destination IPs, total bytes transferred, and total network connections were observed?
 
 | **Metric**                | **Value** |
@@ -401,57 +320,8 @@ How many unique source IPs, unique destination IPs, total bytes transferred, and
 
 The dataset contains 6 unique source IP addresses communicating with 5 unique destination IP addresses. A total of 60 network connections were recorded, transferring 272,347 bytes of data.
 
-**\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\
-\**
+Please refer to image # 15 in the repository.
+
+
+
+
